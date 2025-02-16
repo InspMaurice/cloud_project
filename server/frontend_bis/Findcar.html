@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recherche de Véhicule</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="card">
+        <div class="card-content">
+            <select id="marque">
+                <option value="">Sélectionnez une marque</option>
+            </select>
+            <select id="carburant">
+                <option value="">Sélectionnez un carburant</option>
+            </select>
+            <select id="hybride">
+                <option value="">Hybride ou non</option>
+            </select>
+            <select id="boite">
+                <option value="">Sélectionnez une boîte de vitesse</option>
+            </select>
+            <select id="carrosserie">
+                <option value="">Sélectionnez une carrosserie</option>
+            </select>
+            <input type="text" id="puissance" placeholder="Puissance maximale">
+            <input type="text" id="annee" placeholder="Année">
+            <button id="search">Rechercher</button>
+        </div>
+        <div id="results" class="hidden">
+            <h3>Résultats :</h3>
+            <div id="result-list"></div>
+            <div class="pagination">
+                <button id="prev">Précédent</button>
+                <span id="page">Page 1</span>
+                <button id="next">Suivant</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
