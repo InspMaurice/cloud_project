@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-findcar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-findcar
+  template:
+    metadata:
+      labels:
+        app: backend-findcar
+    spec:
+      containers:
+        - name: backend-findcar
+          image: linspecteur/backend-findcar:v1
+          ports:
+            - containerPort: 5000
+          env:
+            - name: POSTGRES_DB
+              value: "carsdatabase"
+            - name: POSTGRES_USER
+              value: "userx"
+            - name: POSTGRES_PASSWORD
+              value: "RrOppY6%wCV!J0^!l@"
+            - name: POSTGRES_HOST
+              value: "postgres-service"
+            - name: POSTGRES_PORT
+              value: "5432"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-findcar
+spec:
+  selector:
+    app: backend-findcar
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
