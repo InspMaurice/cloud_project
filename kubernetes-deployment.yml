@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend-findcar
-          image: monutilisateur/backend-findcar:latest
+          image: linspecteur/backend-findcar:latest
           ports:
             - containerPort: 5000
 ---
@@ -47,7 +47,7 @@ spec:
     spec:
       containers:
         - name: backend-pollution
-          image: monutilisateur/backend-pollution:latest
+          image: linspecteur/backend-pollution:latest
           ports:
             - containerPort: 5000
 ---
@@ -80,7 +80,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: monutilisateur/frontend:latest
+          image: linspecteur/frontend:latest
           ports:
             - containerPort: 80
 ---
