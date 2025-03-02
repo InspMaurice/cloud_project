@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend-pollution
-          image: linspecteur/backend-pollution:v2
+          image: linspecteur/backend-pollution:v1
           ports:
             - containerPort: 5001
           env:
