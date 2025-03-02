@@ -40,7 +40,7 @@ spec:
             name: postgres-init-script
         - name: csv-data
           hostPath:
-            path: "/home/vboxuser/cloud_project/database/vehicules-commercialises.csv"  # ⬅️ Change ce chemin si besoin
+            path: "/mnt/data/vehicules-commercialises.csv"
             type: File
 ---
 apiVersion: v1
