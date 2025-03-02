@@ -11,14 +11,14 @@ spec:
     http:
       paths:
       - path: /backend-findcar/(.*)
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: backend-findcar
             port:
               number: 5000
       - path: /backend-pollution/(.*)
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: backend-pollution
