@@ -3,26 +3,25 @@ kind: Ingress
 metadata:
   name: api-gateway
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/configuration-snippet: |
       proxy_set_header Host $host;
 spec:
   ingressClassName: nginx
   rules:
-    - host: myservice.info
-      http:
-        paths:
-          - path: /backend-findcar
-            pathType: Prefix
-            backend:
-              service:
-                name: backend-findcar
-                port:
-                  number: 5000
-          - path: /backend-pollution
-            pathType: Prefix
-            backend:
-              service:
-                name: backend-pollution
-                port:
-                  number: 5001
+  - host: myservice.info
+    http:
+      paths:
+      - path: /backend-findcar
+        pathType: Prefix
+        backend:
+          service:
+            name: backend-findcar
+            port:
+              number: 5000
+      - path: /backend-pollution
+        pathType: Prefix
+        backend:
+          service:
+            name: backend-pollution
+            port:
+              number: 5001
