@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function fetchPollution(id) {
         // let url = `http://backend_pollution:5000/champv9-finder/id=${id}`;
-        let url = `http://myservice.info/champv9-finder/id=${id}`;
+        let url = `http://myservice.info/backend-pollution/champv9-finder/id=${id}`;
         try {
             const response = await fetch(url, { mode: 'no-cors' });
             const data = await response.json();
