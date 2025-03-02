@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: linspecteur/frontend:v1
+          image: linspecteur/frontend:v2
           ports:
             - containerPort: 80
           env:
