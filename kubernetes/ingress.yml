@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: api-gateway
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/rewrite-target: /$1$is_args$args
 spec:
   ingressClassName: nginx
   rules:
