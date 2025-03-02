@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-gateway
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: myservice.info
+      http:
+        paths:
+          - path: /backend-findcar
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-findcar
+                port:
+                  number: 5000
+          - path: /backend-pollution
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-pollution
+                port:
+                  number: 5001
