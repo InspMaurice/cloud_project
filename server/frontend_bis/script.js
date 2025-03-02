@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .join("&");
 
         // let url = `http://backend_findcar:5000/car-research/${query}`;
-        let url = `http://localhost:5000/car-research/${query}`;
+        let url = `http://myservice.info/backend-findcar/car-research/${query}`;
         
         try {
             const response = await fetch(url, { mode: 'no-cors' });
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function fetchPollution(id) {
         // let url = `http://backend_pollution:5000/champv9-finder/id=${id}`;
-        let url = `http://localhost:5001/champv9-finder/id=${id}`;
+        let url = `http://myservice.info/champv9-finder/id=${id}`;
         try {
             const response = await fetch(url, { mode: 'no-cors' });
             const data = await response.json();
