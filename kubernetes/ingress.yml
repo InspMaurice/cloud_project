@@ -17,7 +17,7 @@ spec:
             name: backend-findcar
             port:
               number: 5000
-      - path: /backend-pollution
+      - path: /backend-pollution/(.*)
         pathType: Prefix
         backend:
           service:
