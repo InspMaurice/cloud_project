@@ -14,7 +14,13 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:latest  # On utilise l'image officielle PostgreSQL
+          image: postgres:latest
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              cp /mnt/data/init.sql /docker-entrypoint-initdb.d/init.sql;
+              cp /mnt/data/vehicules-commercialises.csv /docker-entrypoint-initdb.d/vehicules-commercialises.csv;
+              docker-entrypoint.sh postgres
           ports:
             - containerPort: 5432
           env:
@@ -25,66 +31,17 @@ spec:
             - name: POSTGRES_PASSWORD
               value: "RrOppY6%wCV!J0^!l@"
           volumeMounts:
-            - name: postgres-storage
-              mountPath: /var/lib/postgresql/data
-            - name: init-script
+            - name: db-init
               mountPath: /docker-entrypoint-initdb.d
             - name: csv-data
-              mountPath: /docker-entrypoint-initdb.d
+              mountPath: /mnt/data
       volumes:
-        - name: postgres-storage
-          emptyDir: {}  # Stockage temporaire des données (sera persistant tant que le pod tourne)
-        - name: init-script
-          configMap:
-            name: postgres-init-script
+        - name: db-init
+          emptyDir: {}  # Dossier temporaire pour init.sql et le CSV
         - name: csv-data
           hostPath:
             path: "/mnt/data"
             type: Directory
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: postgres-init-script
-data:
-  init.sql: |-
-    CREATE TABLE IF NOT EXISTS cars (
-        id SERIAL PRIMARY KEY,
-        Marque VARCHAR(100),
-        Modele_dossier VARCHAR(100),
-        Modele_commercial VARCHAR(100),
-        Designation_commerciale VARCHAR(100),
-        CNIT VARCHAR(100),
-        Type_Variante_Version VARCHAR(100),
-        Carburant VARCHAR(50),
-        Hybride VARCHAR(50),
-        Puissance_administrative FLOAT,
-        Puissance_maximale FLOAT,
-        Boite_de_vitesse VARCHAR(50),
-        Consommation_urbine FLOAT,
-        Consommation_extra_urbaine FLOAT,
-        Consommation_mixte FLOAT,
-        CO2 FLOAT,
-        CO_type_I FLOAT,
-        HC FLOAT,
-        NOx FLOAT,
-        HC_NOx FLOAT,
-        Particules FLOAT,
-        Masse_vide_euro_min FLOAT,
-        Masse_vide_euro_max FLOAT,
-        Champ_v9 VARCHAR(100),
-        Annee INT,
-        Carrosserie VARCHAR(50),
-        Gamme VARCHAR(50)
-    );
-
-    COPY cars(
-        Marque, Modele_dossier, Modele_commercial, Designation_commerciale, CNIT, Type_Variante_Version, 
-        Carburant, Hybride, Puissance_administrative, Puissance_maximale, Boite_de_vitesse, 
-        Consommation_urbine, Consommation_extra_urbaine, Consommation_mixte, CO2, CO_type_I, 
-        HC, NOx, HC_NOx, Particules, Masse_vide_euro_min, Masse_vide_euro_max, Champ_v9, Annee, Carrosserie, Gamme
-    ) FROM '/docker-entrypoint-initdb.d/vehicules-commercialises.csv' 
-    DELIMITER ',' CSV HEADER;
 ---
 apiVersion: v1
 kind: Service
