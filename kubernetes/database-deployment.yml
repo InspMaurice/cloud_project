@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:latest
+          image: postgres:latest  # On utilise l'image officielle, pas une image figée
           ports:
             - containerPort: 5432
           env:
@@ -37,11 +37,46 @@ spec:
               value: "RrOppY6%wCV!J0^!l@"
           volumeMounts:
             - name: postgres-storage
-              mountPath: /var/lib/postgresql/data
+              mountPath: /var/lib/postgresql/data  # Volume pour garder les données persistantes
+            - name: init-script
+              mountPath: /docker-entrypoint-initdb.d  # Init.sql est monté ici pour être exécuté
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:
             claimName: postgres-pvc
+        - name: init-script
+          configMap:
+            name: postgres-init-script
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init-script
+data:
+  init.sql: |-
+    CREATE TABLE IF NOT EXISTS cars (
+        id SERIAL PRIMARY KEY,
+        Marque VARCHAR(100),
+        Modele_dossier VARCHAR(100),
+        Modele_commercial VARCHAR(100),
+        Designation_commerciale VARCHAR(100),
+        CNIT VARCHAR(100),
+        Type_Variante_Version VARCHAR(100),
+        Carburant VARCHAR(50),
+        Hybride VARCHAR(50),
+        Puissance_administrative FLOAT,
+        Puissance_maximale FLOAT,
+        Boite_de_vitesse VARCHAR(50),
+        Consommation_urbine FLOAT,
+        Consommation_extra_urbaine FLOAT,
+        Consommation_mixte FLOAT,
+        Emission_CO2 FLOAT
+    );
+
+    INSERT INTO cars (Marque, Modele_commercial, Carburant, Puissance_maximale) VALUES
+    ('Tesla', 'Model S', 'Électrique', 500),
+    ('Peugeot', '208', 'Essence', 120),
+    ('Renault', 'Clio', 'Diesel', 110);
 ---
 apiVersion: v1
 kind: Service
