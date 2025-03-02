@@ -10,7 +10,7 @@ spec:
   - host: myservice.info
     http:
       paths:
-      - path: /backend-findcar
+      - path: /backend-findcar/(.*)
         pathType: Prefix
         backend:
           service:
