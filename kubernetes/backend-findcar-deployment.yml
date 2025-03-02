@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend-findcar
-          image: linspecteur/backend-findcar:v1
+          image: linspecteur/backend-findcar:v2
           ports:
             - containerPort: 5000
           env:
