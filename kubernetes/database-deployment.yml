@@ -27,13 +27,20 @@ spec:
           volumeMounts:
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data
-            - name: db-init
+            - name: init-script
+              mountPath: /docker-entrypoint-initdb.d
+            - name: csv-data
               mountPath: /docker-entrypoint-initdb.d
       volumes:
         - name: postgres-storage
           emptyDir: {}  # Stockage temporaire des données (sera persistant tant que le pod tourne)
-        - name: db-init
-          emptyDir: {}
+        - name: init-script
+          configMap:
+            name: postgres-init-script
+        - name: csv-data
+          hostPath:
+            path: "/mnt/data"
+            type: Directory
 ---
 apiVersion: v1
 kind: ConfigMap
