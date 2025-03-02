@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let query = Object.entries(formData)
             .filter(([_, value]) => value !== "")
             .map(([key, value]) => `${key}=${value}`)
-            .join("&");
+            .join("/");
 
         // let url = `http://backend_findcar:5000/car-research/${query}`;
         let url = `http://myservice.info/backend-findcar/car-research/${query}`;
