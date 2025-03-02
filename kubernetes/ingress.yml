@@ -3,21 +3,21 @@ kind: Ingress
 metadata:
   name: api-gateway
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: "/"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   ingressClassName: nginx
   rules:
   - host: myservice.info
     http:
       paths:
-      - path: /backend-findcar
+      - path: /backend-findcar/(.*)
         pathType: Prefix
         backend:
           service:
             name: backend-findcar
             port:
               number: 5000
-      - path: /backend-pollution
+      - path: /backend-pollution/(.*)
         pathType: Prefix
         backend:
           service:
