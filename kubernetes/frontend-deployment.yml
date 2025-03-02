@@ -15,6 +15,7 @@ spec:
       containers:
         - name: frontend
           image: linspecteur/frontend:v2
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
           env:
